@@ -26,9 +26,7 @@ do
 	echo "start hadoop-slave$i container..."
 	sudo docker run -itd \
 	                --net=hadoop \
-                	-p 8041:8041 \
-                	-p 8042:8042 \
-                	-p 8043:8043 \
+					-p 804$i:804$i \
 	                --name hadoop-slave$i \
 	                --hostname hadoop-slave$i \
 	                abc &> /dev/null

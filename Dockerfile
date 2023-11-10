@@ -38,21 +38,19 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
     mv /tmp/run-wordcount.sh ~/run-wordcount.sh
 
+
+COPY scripts/ ./
+
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
+    chmod +x ~/build-inverted-index.sh && \
+    chmod +x ~/jpii-run-similarity-search.sh && \
+    chmod +x ~/search.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
 
-COPY scripts/* ./
-COPY scripts/input/ ./input
-# COPY gutenberg/* ./gutenberg/
-
-RUN chmod +x ~/build-inverted-index.sh
-RUN chmod +x ~/jpii-run-similarity-search.sh
-# RUN find . -type f -exec chmod +x {} \;
-
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
-
+# RUN ./start-hadoop.sh
 CMD [ "sh", "-c", "service ssh start; bash"]
 
