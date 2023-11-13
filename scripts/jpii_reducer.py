@@ -32,7 +32,7 @@ def main(separator='\t'):
             total_count = sum(int(count) for current_word, count in group)
             url_ij, w_i, w_j = current_word.split('@')
             sim = float(total_count) / (int(w_i) + int(w_j) - total_count)
-            print("{}{}{}").format(url_ij, separator, sim)
+            print("{}{}{}".format(url_ij, separator, sim))
         except ValueError:
             pass
 

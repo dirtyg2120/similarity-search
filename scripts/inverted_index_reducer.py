@@ -4,7 +4,6 @@ from itertools import groupby
 from operator import itemgetter
 import sys
 import os
-import logging
 
 """
 High level of what the first reducer will do

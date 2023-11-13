@@ -27,8 +27,8 @@ hdfs dfs -put ./input/* input 2> /dev/null
 hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.2.jar \
         -Dmapreduce.task.timeout=0 \
         -Dmapreduce.reduce.env='total_map_tasks=$total_map' \
-	# -Dmapreduce.map.memory.mb=4096 \
-	# -Dmapreduce.reduce.memory.mb=4096 \
+	-Dmapreduce.map.memory.mb=4096 \
+	-Dmapreduce.reduce.memory.mb=4096 \
         -files /root/inverted_index_mapper.py,/root/inverted_index_reducer.py \
         -mapper inverted_index_mapper.py \
         -reducer inverted_index_reducer.py \
