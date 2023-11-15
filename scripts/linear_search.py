@@ -12,7 +12,7 @@ def jaccard(list1, list2):
     similarity = float(intersection) / union
     return intersection, union, similarity
 
-def linear_search_files_jaccard(root_path, search_term):
+def linear_search(root_path, search_term):
     start_time = datetime.now()
     found_times = {}
     num_found = 0
@@ -37,4 +37,4 @@ def linear_search_files_jaccard(root_path, search_term):
 # Example usage
 root_path = 'input'
 search_term = input("Enter the search term: ")
-linear_search_files_jaccard(root_path, search_term)
+linear_search(root_path, search_term)
