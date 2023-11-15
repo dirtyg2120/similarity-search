@@ -2,12 +2,14 @@
 
 import sys
 
+
 def read_input(file):
     for line in file:
         # split the line into words
         yield line.split()
 
-def main(separator='\t'):
+
+def main(separator="\t"):
     # input comes from STDIN (standard input)
     data = read_input(sys.stdin)
     for words in data:
@@ -19,6 +21,6 @@ def main(separator='\t'):
         for word in words:
             print(word, separator, 1)
 
+
 if __name__ == "__main__":
     main()
-

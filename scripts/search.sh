@@ -20,8 +20,8 @@ hdfs dfs -put ./input/* input 2> /dev/null
 hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.2.jar \
         -Dmapreduce.task.timeout=0 \
         -Dmapreduce.reduce.env="total_map_tasks=$total_map" \
-	-Dmapreduce.map.memory.mb=2048 \
-	-Dmapreduce.reduce.memory.mb=2048 \
+	-Dmapreduce.map.memory.mb=4096 \
+	-Dmapreduce.reduce.memory.mb=4096 \
         -files /root/inverted_index_mapper.py,/root/inverted_index_reducer.py \
         -mapper inverted_index_mapper.py \
         -reducer inverted_index_reducer.py \
@@ -39,8 +39,8 @@ output_dir="output-$(hdfs dfs -ls | wc -l)"
 hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.2.jar \
         -Dmapreduce.task.timeout=0 \
         -Dmapreduce.map.env="q_from_user=$query" \
-	-Dmapreduce.map.memory.mb=2048 \
-	-Dmapreduce.reduce.memory.mb=2048 \
+	-Dmapreduce.map.memory.mb=4096 \
+	-Dmapreduce.reduce.memory.mb=4096 \
         -files /root/jpii_mapper.py,/root/jpii_reducer.py,  \
         -mapper jpii_mapper.py \
         -reducer jpii_reducer.py \

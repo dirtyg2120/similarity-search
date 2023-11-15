@@ -1,11 +1,9 @@
-FROM ubuntu:14.04
-
-MAINTAINER KiwenLau <kiwenlau@gmail.com>
+FROM ubuntu:18.04
 
 WORKDIR /root
 
 # install openssh-server, openjdk and wget
-RUN apt-get update && apt-get install -y openssh-server openjdk-7-jdk wget vim python3.9
+RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget vim
 
 # install hadoop 2.7.2
 RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/2.7.2/hadoop-2.7.2.tar.gz && \
@@ -14,7 +12,7 @@ RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/2.7.2/hado
     rm hadoop-2.7.2.tar.gz
 
 # set environment variable
-ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 
 ENV HADOOP_HOME=/usr/local/hadoop 
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin 
 
@@ -40,12 +38,14 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
 
 
 COPY scripts/ ./
+COPY tfidf/ ./tfidf/
 
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x ~/build-inverted-index.sh && \
     chmod +x ~/jpii-run-similarity-search.sh && \
     chmod +x ~/search.sh && \
+    chmod +x ~/tfidf/wordcount.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
 

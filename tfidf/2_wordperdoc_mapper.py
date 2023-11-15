@@ -13,10 +13,6 @@
 """
 
 import sys
-import os
-import string
-import re
-import glob
 
 lines = []
 wordperdoc = {}
@@ -24,6 +20,6 @@ wordperdoc = {}
 for line in sys.stdin:
     line = line.strip()
 
-    if line != '\n':
+    if line != "\n":
         word_docid, wordcount = eval(line)
         print('({}, ("{}", {}))'.format(word_docid[1], word_docid[0], wordcount))

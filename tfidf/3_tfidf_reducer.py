@@ -10,12 +10,8 @@
 
 """
 
-import sys
-import os
-import string
-import re
 import math
-import glob
+import sys
 
 df_t = {}
 lines = []
@@ -46,6 +42,6 @@ for line in lines:
     n_d = float(wordperdoc)
     df_t_val = float(df_t[word])
 
-    tf_idf = ( tf_t_d / n_d ) * math.log10(N/df_t_val)
+    tf_idf = (tf_t_d / n_d) * math.log10(N / df_t_val)
 
     print('(("{}", {}), {})'.format(word, doc_ID, tf_idf))

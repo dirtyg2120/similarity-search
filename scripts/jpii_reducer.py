@@ -1,8 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
+# encoding: utf-8
 
+import sys
 from itertools import groupby
 from operator import itemgetter
-import sys
 
 """ REDUCE: 
 Input:
@@ -18,23 +19,27 @@ REDUCE: for each pair, group when group by pair:
             sim = val / (w_i + w_j - val)
             Emit pair sim
 """
-def read_mapper_2_output(file, separator='\t'):
+
+
+def read_mapper_2_output(file, separator="\t"):
     # get URL_i-URL_j@W_i@W_j\t1
     for line in file:
         # print(line.rstrip().split(separator, 1))
         yield line.rstrip().split(separator, 1)
 
-def main(separator='\t'):
+
+def main(separator="\t"):
     # input comes from STDIN (standard input)
     data = read_mapper_2_output(sys.stdin, separator=separator)
     for current_word, group in groupby(data, itemgetter(0)):
         try:
             total_count = sum(int(count) for current_word, count in group)
-            url_ij, w_i, w_j = current_word.split('@')
+            url_ij, w_i, w_j = current_word.split("@")
             sim = float(total_count) / (int(w_i) + int(w_j) - total_count)
             print("{}{}{}".format(url_ij, separator, sim))
         except ValueError:
             pass
+
 
 if __name__ == "__main__":
     main()

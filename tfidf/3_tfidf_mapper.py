@@ -10,11 +10,11 @@
    Output: word, ((word, doc_ID), (wordcount, wordperdoc))
 """
 
-import sys
-import os
-import string
-import re
 import glob
+import os
+import re
+import string
+import sys
 
 lines = []
 wordperdoc = {}

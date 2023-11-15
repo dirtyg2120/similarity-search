@@ -14,17 +14,17 @@
    Output: ((word, doc_id), 1)
 """
 
-import sys
 import os
 import re
+import sys
 
-stopwords = open('utils/stopwords_en.txt').read().split("\n")
+stopwords = open("utils/stopwords_en.txt").read().split("\n")
 current_filename = ""
 doc_id = 0
 
 for line in sys.stdin:
     # Set file ID as collection ID
-    file_name = os.getenv('map_input_file')
+    file_name = os.getenv("map_input_file")
     if current_filename != file_name:
         current_filename = file_name
         doc_id += 1
@@ -56,7 +56,7 @@ for line in sys.stdin:
 #     file_url = file_url if file_url else "random_filename"
 #     if '/' in file_url:
 #         file_url = file_url.split('/')[-1]
-    
+
 #     document_words = set()
 #     for line in data:
 #         document_words.update(line.split())
