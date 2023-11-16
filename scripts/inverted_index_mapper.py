@@ -4,6 +4,9 @@
 import os
 import re
 import sys
+import nltk
+nltk.download("punkt")
+from nltk.tokenize import word_tokenize
 
 """
 High level of what the first mapper will do
@@ -18,9 +21,8 @@ MAP1:   [D_i]   -->     [term_k, URL_i@W_i]
 
 def transform(content):
     content = content.lower()
-    # remove punctualtions
     content = re.sub(r"[^\w\s]", "", content)
-    return content
+    return set(word_tokenize(content))
 
 
 def read_input(file):
@@ -38,7 +40,7 @@ def main(separator="\t", second_sep="@"):
         file_url = file_url.split("/")[-1]
     document_words = set()
     for line in data:
-        document_words.update(line.split())
+        document_words.update(line)
 
     for word in document_words:
         print("{}{}{}{}{}".format(word, separator, file_url, second_sep, len(document_words)))

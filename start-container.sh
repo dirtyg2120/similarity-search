@@ -14,7 +14,7 @@ sudo docker run -itd \
                 -p 8088:8088 \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                abc &> /dev/null
+                my-hadoop &> /dev/null
 
 
 # start hadoop slave container
@@ -29,7 +29,7 @@ do
 					-p 804$i:804$i \
 	                --name hadoop-slave$i \
 	                --hostname hadoop-slave$i \
-	                abc &> /dev/null
+	                my-hadoop &> /dev/null
 	i=$(( $i + 1 ))
 done 
 

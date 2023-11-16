@@ -1,12 +1,13 @@
-import nltk
-
-nltk.download("punkt")
+from nltk.tokenize import word_tokenize
 import os
 import time
 from datetime import datetime
+import re
 
-from nltk.tokenize import word_tokenize
-
+def transform(content):
+    content = content.lower()
+    content = re.sub(r"[^\w\s]", "", content)
+    return set(word_tokenize(content))
 
 def jaccard(list1, list2):
     set1 = set(list1)
@@ -18,35 +19,27 @@ def jaccard(list1, list2):
 
 
 def linear_search_files_jaccard(root_path, search_term):
-    start_time = datetime.now()
     num_found = 0
-
-    found_times = {}
-    search_set = set(word_tokenize(search_term.lower()))
-    print("JACCARD SIMILARITY WITH LINEAR SEARCH")
+    search_set = transform(search_term)
     print("Search term:", search_term, "\n")
+
     for subdir, dirs, files in os.walk(root_path):
         for file in files:
+            start_file = time.time()
             if file.endswith(".txt"):
                 filepath = os.path.join(subdir, file)
                 with open(filepath, "r", encoding="utf-8") as f:
                     file_set = set()
                     for line_num, line in enumerate(f):
-                        line_set = set(word_tokenize(line.lower()))
+                        line_set = transform(line.lower())
                         file_set.update(line_set)
                     intersection, union, similarity = jaccard(search_set, file_set)
                 if similarity > 0:
                     num_found += 1
-                    now = datetime.now()
-                    found_times[num_found] = (now - start_time).total_seconds()
                     print(
-                        f"({num_found})\t({intersection}\t{union}\t{similarity:.8f})\t{filepath}\t\t{(now - start_time).total_seconds():.2f}s"
+                        f"({num_found})\t({similarity:.8f})\t{filepath}\t{time.time()-start_file}"
                     )
 
-    end_time = datetime.now()
-    duration = end_time - start_time
-
-    print(f"\nTotal time taken: {duration.total_seconds():.2f}s")
 
     if num_found == 0:
         print("Search term not found.\n")
@@ -56,9 +49,7 @@ def linear_search_files_jaccard(root_path, search_term):
 
 if __name__ == "__main__":
     root_path = "."
-    search_term = """
-        Hello it's me
-    """
+    search_term = input("Enter the search term: ")
     start = time.time()
     linear_search_files_jaccard(root_path, search_term)
     print(time.time() - start)

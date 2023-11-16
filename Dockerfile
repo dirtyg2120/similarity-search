@@ -4,6 +4,8 @@ WORKDIR /root
 
 # install openssh-server, openjdk and wget
 RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget vim
+RUN apt-get install -y python3-pip
+RUN pip3 install nltk
 
 # install hadoop 2.7.2
 RUN wget https://github.com/kiwenlau/compile-hadoop/releases/download/2.7.2/hadoop-2.7.2.tar.gz && \
@@ -43,7 +45,7 @@ COPY tfidf/ ./tfidf/
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x ~/build-inverted-index.sh && \
-    chmod +x ~/jpii-run-similarity-search.sh && \
+    chmod +x ~/run-similarity-search.sh && \
     chmod +x ~/search.sh && \
     chmod +x ~/tfidf/wordcount.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
@@ -53,4 +55,3 @@ RUN chmod +x ~/start-hadoop.sh && \
 RUN /usr/local/hadoop/bin/hdfs namenode -format
 # RUN ./start-hadoop.sh
 CMD [ "sh", "-c", "service ssh start; bash"]
-

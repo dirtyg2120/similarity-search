@@ -22,9 +22,7 @@ REDUCE: for each pair, group when group by pair:
 
 
 def read_mapper_2_output(file, separator="\t"):
-    # get URL_i-URL_j@W_i@W_j\t1
     for line in file:
-        # print(line.rstrip().split(separator, 1))
         yield line.rstrip().split(separator, 1)
 
 

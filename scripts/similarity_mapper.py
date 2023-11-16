@@ -5,6 +5,9 @@
 import os
 import re
 import sys
+import nltk
+nltk.download("punkt")
+from nltk.tokenize import word_tokenize
 
 """ MAP: 
 Input:
@@ -31,14 +34,9 @@ def read_input(file, separator="\t"):
 
 
 def transform(content):
-    # lowercase
     content = content.lower()
-    # remove punctualtions
     content = re.sub(r"[^\w\s]", "", content)
-    # remove stop words
-
-    # lemmatization
-    return content
+    return set(word_tokenize(content))
 
 
 def main(separator="\t"):
@@ -49,7 +47,7 @@ def main(separator="\t"):
     # file_url = file_url if file_url else "random_filename"
     # get content of query from hadoop environment
     raw_query = os.getenv("q_from_user")
-    query_words = set(transform(raw_query if raw_query else "").split())
+    query_words = set(transform(raw_query if raw_query else ""))
 
     for term, elements in data:
         if term not in query_words:
